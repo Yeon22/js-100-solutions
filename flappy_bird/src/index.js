@@ -9,21 +9,32 @@ let wing = document.createElement("div");
 let player = {
     x: 0,
     y: 0,
-    speed: 2,
+    speed: 5,
 };
 
 const playGame = () => {
-    if (keys.ArrowLeft) {
+    let move = false;
+
+    if (keys.ArrowLeft && player.x > 0) {
         player.x -= player.speed;
+        move = true;
     }
-    if (keys.ArrowRight) {
+    if (keys.ArrowRight && player.x < gameArea.offsetWidth - bird.offsetWidth) {
         player.x += player.speed;
+        move = true;
     }
-    if (keys.ArrowUp) {
+    if (keys.ArrowUp && player.y > 0) {
         player.y -= player.speed;
+        move = true;
     }
-    if (keys.ArrowDown) {
+    if (keys.ArrowDown && player.y < gameArea.offsetHeight - bird.offsetHeight) {
         player.y += player.speed;
+        move = true;
+    }
+
+    if (move) {
+        wing.pose = wing.pose === 15 ? 25 : 15;
+        wing.style.top = wing.pose + "px";
     }
 
     bird.style.left = player.x + "px";
@@ -37,11 +48,14 @@ const playGame = () => {
 const start = () => {
     gameMessage.classList.add("hide");
     startBtn.classList.add("hide");
-
+    
     bird.setAttribute("class", "bird");
     wing.setAttribute("class", "wing");
     bird.appendChild(wing);
     gameArea.appendChild(bird);
+
+    wing.pose = 15;
+    wing.style.top = wing.pose + "px";
 
     player.x = bird.offsetLeft;
     player.y = bird.offsetTop;
