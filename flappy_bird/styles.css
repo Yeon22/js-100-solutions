@@ -69,3 +69,9 @@ body {
     text-align: center;
     background-color: royalblue;
 }
+
+.pipe {
+    position: absolute;
+    width: 100px;
+    
+}
